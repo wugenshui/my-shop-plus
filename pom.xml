@@ -10,9 +10,8 @@
     </parent>
 
     <groupId>com.chenbo.myshop.plus</groupId>
-    <artifactId>dependencies</artifactId>
+    <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dependencies</name>
     <packaging>pom</packaging>
 
     <modules>
