@@ -44,7 +44,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.funtl.myshop.plus</groupId>
+                <groupId>com.chenbo.myshop.plus</groupId>
                 <artifactId>dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
