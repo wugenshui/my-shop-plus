@@ -1,4 +1,4 @@
-package com.chenbo.myshop.plus.provider.service.service;
+package com.chenbo.myshop.plus.provider.service;
 
 import com.chenbo.myshop.plus.provider.api.EchoService;
 import org.apache.dubbo.config.annotation.Service;
