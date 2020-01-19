@@ -68,11 +68,11 @@
         </dependency>
 
         <!-- Projects -->
-<!--        <dependency>-->
-<!--            <groupId>com.chenbo.myshop.plus</groupId>-->
-<!--            <artifactId>commons-provider</artifactId>-->
-<!--            <version>${project.parent.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.chenbo.myshop.plus</groupId>
+            <artifactId>commons-provider</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.chenbo.myshop.plus</groupId>-->
 <!--            <artifactId>configuration-sentinel</artifactId>-->
@@ -81,7 +81,7 @@
     </dependencies>
 
     <modules>
-<!--        <module>provider-admin-api</module>-->
+        <module>provider-admin-api</module>
 <!--        <module>provider-admin-service</module>-->
 <!--        <module>provider-admin-login-log-api</module>-->
 <!--        <module>provider-admin-login-log-service</module>-->
