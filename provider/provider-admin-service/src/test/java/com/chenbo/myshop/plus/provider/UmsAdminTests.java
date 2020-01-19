@@ -58,6 +58,7 @@ public class UmsAdminTests {
         umsAdmin.setStatus(0);
 
         int result = umsAdminService.insert(umsAdmin);
+        System.out.println(umsAdmin);
         Assert.assertEquals(result, 1);
     }
 
@@ -72,6 +73,7 @@ public class UmsAdminTests {
         umsAdmin.setStatus(1);
 
         int result = umsAdminService.update(umsAdmin);
+        System.out.println(umsAdmin);
         Assert.assertEquals(result, 1);
     }
 }
