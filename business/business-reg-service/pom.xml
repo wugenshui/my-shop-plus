@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>business-reg-service</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -35,16 +36,8 @@
         <dependency>
             <groupId>com.chenbo.myshop.plus</groupId>
             <artifactId>provider-admin-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.parent.version}</version>
         </dependency>
-
-        <!-- Projects -->
-<!--        <dependency>-->
-<!--            <groupId>com.funtl.myshop.plus</groupId>-->
-<!--            <artifactId>provider-admin-api</artifactId>-->
-<!--            <version>${project.parent.version}</version>-->
-<!--        </dependency>-->
     </dependencies>
 
 
