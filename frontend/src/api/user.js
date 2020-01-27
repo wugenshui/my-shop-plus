@@ -2,9 +2,8 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
-    method: 'post',
-    data
+    url: 'oauth/token?username=admin&password=123456&grant_type=password&client_id=client&client_secret=secret',
+    method: 'post'
   })
 }
 
