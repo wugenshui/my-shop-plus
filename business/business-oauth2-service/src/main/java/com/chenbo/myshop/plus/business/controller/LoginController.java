@@ -2,21 +2,27 @@ package com.chenbo.myshop.plus.business.controller;
 
 import com.chenbo.myshop.plus.business.BusinessException;
 import com.chenbo.myshop.plus.business.BusinessStatus;
+import com.chenbo.myshop.plus.business.dto.LoginInfo;
 import com.chenbo.myshop.plus.business.dto.LoginParam;
+import com.chenbo.myshop.plus.business.feign.ProfileFeign;
 import com.chenbo.myshop.plus.commons.dto.ResponseResult;
 import com.chenbo.myshop.plus.commons.utils.MapperUtils;
 import com.chenbo.myshop.plus.commons.utils.OkHttpClientUtil;
 import com.chenbo.myshop.plus.provider.api.UmsAdminService;
+import com.chenbo.myshop.plus.provider.domain.UmsAdmin;
 import com.google.common.collect.Maps;
 import okhttp3.Response;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,8 +59,8 @@ public class LoginController {
     @Resource
     public TokenStore tokenStore;
 
-    //@Resource
-    //private ProfileFeign profileFeign;
+    @Resource
+    private ProfileFeign profileFeign;
 
     @Reference(version = "1.0.0")
     private UmsAdminService umsAdminService;
@@ -109,28 +115,28 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    //@PreAuthorize("hasAuthority('USER')")
-    //@GetMapping(value = "/user/info")
-    //public ResponseResult<LoginInfo> info() throws Exception {
-    //    // 获取认证信息
-    //    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //
-    //    // 获取个人信息
-    //    String jsonString = profileFeign.info(authentication.getName());
-    //    UmsAdmin umsAdmin = MapperUtils.json2pojoByTree(jsonString, "data", UmsAdmin.class);
-    //
-    //    // 如果触发熔断则返回熔断结果
-    //    if (umsAdmin == null) {
-    //        return MapperUtils.json2pojo(jsonString, ResponseResult.class);
-    //    }
-    //
-    //    // 封装并返回结果
-    //    LoginInfo loginInfo = new LoginInfo();
-    //    loginInfo.setName(umsAdmin.getUsername());
-    //    loginInfo.setAvatar(umsAdmin.getIcon());
-    //    loginInfo.setNickName(umsAdmin.getNickName());
-    //    return new ResponseResult<LoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", loginInfo);
-    //}
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/user/info")
+    public ResponseResult<LoginInfo> info() throws Exception {
+        // 获取认证信息
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 获取个人信息
+        String jsonString = profileFeign.info(authentication.getName());
+        UmsAdmin umsAdmin = MapperUtils.json2pojoByTree(jsonString, "data", UmsAdmin.class);
+
+        // 如果触发熔断则返回熔断结果
+        if (umsAdmin == null) {
+            return MapperUtils.json2pojo(jsonString, ResponseResult.class);
+        }
+
+        // 封装并返回结果
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setName(umsAdmin.getUsername());
+        loginInfo.setAvatar(umsAdmin.getIcon());
+        loginInfo.setNickName(umsAdmin.getNickName());
+        return new ResponseResult<LoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", loginInfo);
+    }
 
     /**
      * 注销
