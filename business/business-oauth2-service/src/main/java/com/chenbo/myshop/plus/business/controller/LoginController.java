@@ -9,7 +9,6 @@ import com.chenbo.myshop.plus.commons.dto.ResponseResult;
 import com.chenbo.myshop.plus.commons.utils.MapperUtils;
 import com.chenbo.myshop.plus.commons.utils.OkHttpClientUtil;
 import com.chenbo.myshop.plus.provider.api.UmsAdminService;
-import com.chenbo.myshop.plus.provider.domain.UmsAdmin;
 import com.google.common.collect.Maps;
 import okhttp3.Response;
 import org.apache.dubbo.config.annotation.Reference;
@@ -36,6 +35,7 @@ import java.util.Objects;
  * @author : chenbo
  * @date : 2020-01-21
  */
+//@CrossOrigin(origins = "*",methods = "*", maxAge = 3600)
 @RestController
 public class LoginController {
 
@@ -115,26 +115,31 @@ public class LoginController {
      *
      * @return {@link ResponseResult}
      */
-    @PreAuthorize("hasAuthority('USER')")
+    //@PreAuthorize("hasAuthority('USER')")
     @GetMapping(value = "/user/info")
     public ResponseResult<LoginInfo> info() throws Exception {
         // 获取认证信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // 获取个人信息
-        String jsonString = profileFeign.info(authentication.getName());
-        UmsAdmin umsAdmin = MapperUtils.json2pojoByTree(jsonString, "data", UmsAdmin.class);
-
-        // 如果触发熔断则返回熔断结果
-        if (umsAdmin == null) {
-            return MapperUtils.json2pojo(jsonString, ResponseResult.class);
-        }
-
+        //String jsonString = profileFeign.info(authentication.getName());
+        //UmsAdmin umsAdmin = MapperUtils.json2pojoByTree(jsonString, "data", UmsAdmin.class);
+        //
+        //// 如果触发熔断则返回熔断结果
+        //if (umsAdmin == null) {
+        //    return MapperUtils.json2pojo(jsonString, ResponseResult.class);
+        //}
+        //
+        //// 封装并返回结果
+        //LoginInfo loginInfo = new LoginInfo();
+        //loginInfo.setName(umsAdmin.getUsername());
+        //loginInfo.setAvatar(umsAdmin.getIcon());
+        //loginInfo.setNickName(umsAdmin.getNickName());
         // 封装并返回结果
         LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setName(umsAdmin.getUsername());
-        loginInfo.setAvatar(umsAdmin.getIcon());
-        loginInfo.setNickName(umsAdmin.getNickName());
+        loginInfo.setName(authentication.getName());
+        loginInfo.setAvatar("http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20190129/170157_yIl3_1767531.jpg");
+        loginInfo.setNickName(authentication.getName());
         return new ResponseResult<LoginInfo>(ResponseResult.CodeStatus.OK, "获取用户信息", loginInfo);
     }
 

@@ -59,5 +59,13 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             body.deleteCharAt(body.length() - 1);
             requestTemplate.body(Request.Body.bodyTemplate(body.toString(), Charset.defaultCharset()));
         }
+
+        // TODO 简易版
+        //ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+        //        .getRequestAttributes();
+        //HttpServletRequest request = attributes.getRequest();
+        //String authorization = request.getHeader("Authorization");
+        //
+        //template.header("Authorization", authorization);
     }
 }
