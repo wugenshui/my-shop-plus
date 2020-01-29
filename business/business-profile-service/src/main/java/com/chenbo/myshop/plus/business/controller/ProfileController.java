@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @author : chenbo
  * @date : 2020-01-27
  */
-@CrossOrigin(allowCredentials = "true", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS}, origins = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "profile")
 public class ProfileController {

@@ -40,7 +40,7 @@ module.exports = {
     proxy: {
       // 配置跨域
       '/user': {
-        target: 'http://localhost:9001/user',
+        target: 'http://localhost:9999/api/user',
         changOrigin: true,
         pathRewrite: {
           '^/user': '/'
